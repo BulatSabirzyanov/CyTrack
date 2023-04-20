@@ -26,7 +26,7 @@ class MainAdapter :
         }
 
         if (index == -1) {
-            throw IllegalStateException("No delegate found for position $position")
+            throw IllegalStateException("No AdapterDelegate found for the item at position $position")
         }
 
         return index

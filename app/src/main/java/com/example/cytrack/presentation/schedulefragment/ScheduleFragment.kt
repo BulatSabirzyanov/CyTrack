@@ -54,14 +54,15 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
         super.onViewCreated(view, savedInstanceState)
         observeData()
         adapter.apply {
-            addDelegate(TournamentDelegate())
             addDelegate(GameDelegate(Glide.with(requireContext())))
+            addDelegate(TournamentDelegate())
         }
         binding.recycler.adapter = adapter
+        adapter.submitList(stubGameList.concatenateWithTournament(stubTournamentList))
     }
 
     private fun updateAdapterData() {
-        if (stubTournamentList.isNotEmpty() && stubGameList.isNotEmpty()) {
+        if (stubGameList.isNotEmpty() && stubTournamentList.isNotEmpty()) {
             adapter.submitList(stubGameList.concatenateWithTournament(stubTournamentList))
         }
     }

@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="29sp"
-        android:text="TextView"
+        tools:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/iVTeam1Icon"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,8 +23,8 @@
         android:id="@+id/iVTeam1Icon"
         android:layout_width="30sp"
         android:layout_height="30sp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginStart="0sp"
+        android:layout_marginTop="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -38,7 +38,7 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="29sp"
 
-        android:text="TextView"
+        tools:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/tVDate"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="29dp"
-        android:text="TextView"
+        tools:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/tVTeam1"
         app:layout_constraintTop_toTopOf="parent" />
 
