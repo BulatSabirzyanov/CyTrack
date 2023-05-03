@@ -8,9 +8,12 @@ import com.example.cytrack.di.DaggerAppComponent
 class CyberTrackerAppApplication
     : Application() {
 
-    val appComponent: AppComponent by lazy {
-        DaggerAppComponent.builder()
+    val appComponent: AppComponent = createAppComponent()
+
+    private fun createAppComponent(): AppComponent {
+        return DaggerAppComponent.builder()
             .application(this)
             .build()
     }
 }
+

@@ -6,8 +6,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object PandaScoreService {
-    private val okHttpClient: OkHttpClient by lazy {
-        OkHttpClient.Builder()
+    private val okHttpClient: OkHttpClient = createOkHttpClient()
+
+    val instance: PandaScoreApiService = createPandaScoreApiService()
+
+    private fun createOkHttpClient(): OkHttpClient {
+        return OkHttpClient.Builder()
             .addInterceptor { chain ->
                 val newUrl = chain.request().url.newBuilder()
                     .build()
@@ -30,13 +34,14 @@ object PandaScoreService {
             .build()
     }
 
-    val instance: PandaScoreApiService by lazy {
+    private fun createPandaScoreApiService(): PandaScoreApiService {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.pandascore.co/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        retrofit.create(PandaScoreApiService::class.java)
+        return retrofit.create(PandaScoreApiService::class.java)
     }
 }
+

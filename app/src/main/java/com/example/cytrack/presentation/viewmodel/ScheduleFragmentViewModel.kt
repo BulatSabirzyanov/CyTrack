@@ -38,12 +38,12 @@ class ScheduleFragmentViewModel @AssistedInject constructor(
             runCatching {
                 gameRepository.getGameTournaments(game)
             }.onSuccess { value: List<GameTournamentsResponse> ->
-                val filteredTournaments = value.filter { !it.has_bracket }
+                val filteredTournaments = value.filter { !it.hasBracket }
                 Log.e("body4", filteredTournaments.toString())
                 val tournamentModels = filteredTournaments.map { tournament ->
                     TournamentModel(
                         id = tournament.id.toLong(),
-                        date = tournament.begin_at,
+                        date = tournament.beginAt,
                         name = tournament.league.name
                     )
                 }
@@ -60,12 +60,12 @@ class ScheduleFragmentViewModel @AssistedInject constructor(
 
                         if (team1 != null && team2 != null) {
                             GameModel(
-                                id = match.tournament_id.toLong(),
-                                date = match.begin_at,
+                                id = match.tournamentId.toLong(),
+                                date = match.beginAt,
                                 team1 = team1.name,
                                 team2 = team2.name,
-                                team1Icon = team1.image_url,
-                                team2Icon = team2.image_url,
+                                team1Icon = team1.imageUrl,
+                                team2Icon = team2.imageUrl,
                             )
                         } else {
                             null
