@@ -3,53 +3,51 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingStart="30sp"
-    android:paddingBottom="10sp"
-    tools:ignore="RtlSymmetry">
+    android:layout_height="wrap_content">
 
+
+    <ImageView
+        android:id="@+id/iVTeam1Icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tVTeam1"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+    </ImageView>
 
     <TextView
         android:id="@+id/tVTeam1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="29sp"
-        tools:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tVDate"
         app:layout_constraintStart_toEndOf="@+id/iVTeam1Icon"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/iVTeam1Icon"
-        android:layout_width="30sp"
-        android:layout_height="30sp"
-        android:layout_marginStart="0sp"
-        android:layout_marginTop="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </ImageView>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:text="TextView" />
 
     <TextView
         android:id="@+id/tVTeam2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_marginStart="36dp"
-        android:layout_marginTop="29sp"
-
-        tools:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/iVTeam2Icon"
         app:layout_constraintStart_toEndOf="@+id/tVDate"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.966"
+        tools:text="TextView" />
 
     <ImageView
         android:id="@+id/iVTeam2Icon"
-        android:layout_width="30sp"
-        android:layout_height="30sp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="18dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/tVTeam2"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -60,9 +58,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="29dp"
-        tools:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tVTeam2"
         app:layout_constraintStart_toEndOf="@+id/tVTeam1"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:text="TextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

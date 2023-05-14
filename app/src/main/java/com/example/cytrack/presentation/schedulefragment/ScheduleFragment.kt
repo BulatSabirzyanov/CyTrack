@@ -28,6 +28,11 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
     }
     private var stubGameList: List<GameModel> = emptyList()
     private var stubTournamentList: List<TournamentModel> = emptyList()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        game = arguments?.getString(ARG_GAME) ?: ""
+    }
+
 
     private fun observeData() {
 
@@ -52,6 +57,7 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.tournamentName.text = game
         observeData()
         adapter.apply {
             addDelegate(GameDelegate(Glide.with(requireContext())))
@@ -68,6 +74,10 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
     }
 
     companion object {
-        fun newInstance() = ScheduleFragment()
+        private const val ARG_GAME = "game"
+
+        fun newInstance(game: String) = ScheduleFragment().apply {
+            arguments = Bundle().apply { putString(ARG_GAME, game) }
+        }
     }
 }

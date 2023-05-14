@@ -1,6 +1,6 @@
 package com.example.cytrack.presentation.viewmodel
 
-import android.util.Log
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -39,7 +39,7 @@ class ScheduleFragmentViewModel @AssistedInject constructor(
                 gameRepository.getGameTournaments(game)
             }.onSuccess { value: List<GameTournamentsResponse> ->
                 val filteredTournaments = value.filter { !it.hasBracket }
-                Log.e("body4", filteredTournaments.toString())
+
                 val tournamentModels = filteredTournaments.map { tournament ->
                     TournamentModel(
                         id = tournament.id.toLong(),
@@ -47,36 +47,52 @@ class ScheduleFragmentViewModel @AssistedInject constructor(
                         name = tournament.league.name
                     )
                 }
-                Log.e("body3", tournamentModels.toString())
-                _listOfTournaments.postValue(tournamentModels)
 
                 val gameModels = filteredTournaments.flatMap { tournament ->
                     tournament.matches.mapNotNull { match ->
-                        val teams = match.name.split(" ")
 
-                        val team1 =
-                            tournament.teams.find { it.name == teams.getOrNull(teams.lastIndex - 2) }
-                        val team2 = tournament.teams.find { it.name == teams.last() }
 
-                        if (team1 != null && team2 != null) {
-                            GameModel(
-                                id = match.tournamentId.toLong(),
-                                date = match.beginAt,
-                                team1 = team1.name,
-                                team2 = team2.name,
-                                team1Icon = team1.imageUrl,
-                                team2Icon = team2.imageUrl,
-                            )
+                        if (match.status != "finished" && match.status != "canceled") {
+
+                            val teams = match.name.split(" ")
+
+                            val team1 =
+                                tournament.teams.find { it.name == teams.getOrNull(teams.lastIndex - 2) }
+                            val team2 = tournament.teams.find { it.name == teams.last() }
+
+                            if (team1 != null && team2 != null) {
+                                GameModel(
+                                    id = match.tournamentId.toLong(),
+                                    date = match.beginAt,
+                                    team1 = team1.name,
+                                    team2 = team2.name,
+                                    team1Icon = team1.imageUrl,
+                                    team2Icon = team2.imageUrl,
+                                )
+                            } else {
+                                null
+                            }
                         } else {
                             null
                         }
                     }
                 }
-                Log.e("body2", gameModels.toString())
+
+
+                val filteredTournamentModels = tournamentModels.filter { tournament ->
+                    gameModels.any { game ->
+                        game.id == tournament.id
+                    }
+                }
+
+                _listOfTournaments.postValue(filteredTournamentModels)
                 _listOfGames.postValue(gameModels)
             }
         }
     }
+
+
+
 
 
     @AssistedFactory

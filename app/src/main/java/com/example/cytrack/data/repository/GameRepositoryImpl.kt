@@ -16,7 +16,7 @@ class GameRepositoryImpl @Inject constructor(
 
     override suspend fun getGameTournaments(game: String): List<GameTournamentsResponse> {
         return withContext(ioDispatcher) {
-            remoteSource.getGameTournaments("csgo")
+            remoteSource.getGameTournaments(game)
         }
 
     }

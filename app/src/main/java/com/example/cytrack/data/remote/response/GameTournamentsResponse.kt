@@ -15,16 +15,4 @@ data class GameTournamentsResponse(
     val teams: List<Team>,
     val tier: String,
     val videogame: Videogame,
-
     )
-
-
-
-
-
-
-
-
-
-
-
