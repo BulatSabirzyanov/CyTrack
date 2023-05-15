@@ -14,6 +14,6 @@ interface PandaScoreApiService {
         @Query("search[tier]") tier: String = "s",
         @Query("sort") sort: String = "",
         @Query("page") page: String = "1",
-        @Query("per_page") per_page: String = "50"
+        @Query("per_page") perPage: String = "50"
     ): List<GameTournamentsResponse>
 }
