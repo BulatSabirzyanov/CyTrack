@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cytrack.data.remote.response.GameTournamentsResponse
 import com.example.cytrack.domain.GameRepository
-import com.example.cytrack.presentation.schedulefragment.game.GameModel
-import com.example.cytrack.presentation.schedulefragment.tournament.TournamentModel
+import com.example.cytrack.presentation.screens.schedulefragment.game.GameModel
+import com.example.cytrack.presentation.screens.schedulefragment.tournament.TournamentModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -66,8 +66,8 @@ class ScheduleFragmentViewModel @AssistedInject constructor(
                                     date = match.beginAt,
                                     team1 = team1.name,
                                     team2 = team2.name,
-                                    team1Icon = team1.imageUrl,
-                                    team2Icon = team2.imageUrl,
+                                    team1Icon = team1.imageUrl?: "",
+                                    team2Icon = team2.imageUrl?: "",
                                 )
                             } else {
                                 null

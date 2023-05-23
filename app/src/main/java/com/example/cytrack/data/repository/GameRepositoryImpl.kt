@@ -1,14 +1,15 @@
 package com.example.cytrack.data.repository
 
 import com.example.cytrack.data.remote.response.GameTournamentsResponse
+import com.example.cytrack.data.remote.response.PlayersResponse
 import com.example.cytrack.data.remote.service.PandaScoreApiService
 import com.example.cytrack.domain.GameRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
-class GameRepositoryImpl @Inject constructor(
+
+class GameRepositoryImpl (
     private val remoteSource: PandaScoreApiService,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) :
@@ -20,4 +21,12 @@ class GameRepositoryImpl @Inject constructor(
         }
 
     }
+
+    override suspend fun getPlayerData(game: String): List<PlayersResponse> {
+        return withContext(ioDispatcher){
+            remoteSource.getPlayerData(game)
+        }
+    }
+
+
 }

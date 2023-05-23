@@ -1,6 +1,6 @@
-package com.example.cytrack.presentation.schedulefragment.game
+package com.example.cytrack.presentation.screens.schedulefragment.game
 
-import com.example.cytrack.presentation.schedulefragment.DelegateItem
+import com.example.cytrack.presentation.screens.schedulefragment.DelegateItem
 
 class GameDelegateItem(
     val id: Long,

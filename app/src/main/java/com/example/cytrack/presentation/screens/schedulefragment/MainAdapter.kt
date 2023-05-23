@@ -1,4 +1,4 @@
-package com.example.cytrack.presentation.schedulefragment
+package com.example.cytrack.presentation.screens.schedulefragment
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter

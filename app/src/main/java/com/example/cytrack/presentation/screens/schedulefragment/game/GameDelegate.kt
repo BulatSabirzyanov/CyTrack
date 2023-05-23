@@ -1,12 +1,12 @@
-package com.example.cytrack.presentation.schedulefragment.game
+package com.example.cytrack.presentation.screens.schedulefragment.game
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.example.cytrack.databinding.GameItemBinding
-import com.example.cytrack.presentation.schedulefragment.AdapterDelegate
-import com.example.cytrack.presentation.schedulefragment.DelegateItem
+import com.example.cytrack.presentation.screens.schedulefragment.AdapterDelegate
+import com.example.cytrack.presentation.screens.schedulefragment.DelegateItem
 
 
 class GameDelegate(private val glide: RequestManager) : AdapterDelegate {

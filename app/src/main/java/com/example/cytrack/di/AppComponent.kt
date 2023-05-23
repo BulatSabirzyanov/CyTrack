@@ -4,7 +4,8 @@ package com.example.cytrack.di
 import android.app.Application
 
 
-import com.example.cytrack.presentation.schedulefragment.ScheduleFragment
+
+import com.example.cytrack.presentation.screens.schedulefragment.ScheduleFragment
 import com.example.cytrack.presentation.viewmodel.ScheduleFragmentViewModel
 import dagger.BindsInstance
 import dagger.Component

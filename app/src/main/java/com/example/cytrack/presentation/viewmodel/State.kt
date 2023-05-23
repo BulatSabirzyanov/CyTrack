@@ -1,8 +1,8 @@
 package com.example.cytrack.presentation.viewmodel
 
-import com.example.cytrack.presentation.schedulefragment.date.DateModel
-import com.example.cytrack.presentation.schedulefragment.game.GameModel
-import com.example.cytrack.presentation.schedulefragment.tournament.TournamentModel
+import com.example.cytrack.presentation.screens.schedulefragment.date.DateModel
+import com.example.cytrack.presentation.screens.schedulefragment.game.GameModel
+import com.example.cytrack.presentation.screens.schedulefragment.tournament.TournamentModel
 
 data class State(
     val dateList: List<DateModel>,

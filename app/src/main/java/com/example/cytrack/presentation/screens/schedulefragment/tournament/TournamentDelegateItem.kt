@@ -1,6 +1,6 @@
-package com.example.cytrack.presentation.schedulefragment.tournament
+package com.example.cytrack.presentation.screens.schedulefragment.tournament
 
-import com.example.cytrack.presentation.schedulefragment.DelegateItem
+import com.example.cytrack.presentation.screens.schedulefragment.DelegateItem
 
 class TournamentDelegateItem(
     val id: Long,

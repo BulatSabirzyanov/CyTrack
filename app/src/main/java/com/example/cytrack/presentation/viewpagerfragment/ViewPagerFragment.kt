@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.cytrack.R
-import com.example.cytrack.presentation.schedulefragment.ScheduleFragment
+import com.example.cytrack.presentation.screens.schedulefragment.ScheduleFragment
 import com.example.cytrack.databinding.FragmentViewPagerBinding
 
 class ViewPagerFragment : Fragment(R.layout.fragment_view_pager) {

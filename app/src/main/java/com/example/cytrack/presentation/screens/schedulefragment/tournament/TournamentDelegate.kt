@@ -1,11 +1,11 @@
-package com.example.cytrack.presentation.schedulefragment.tournament
+package com.example.cytrack.presentation.screens.schedulefragment.tournament
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cytrack.databinding.TournamentItemBinding
-import com.example.cytrack.presentation.schedulefragment.AdapterDelegate
-import com.example.cytrack.presentation.schedulefragment.DelegateItem
+import com.example.cytrack.presentation.screens.schedulefragment.AdapterDelegate
+import com.example.cytrack.presentation.screens.schedulefragment.DelegateItem
 
 
 class TournamentDelegate : AdapterDelegate {

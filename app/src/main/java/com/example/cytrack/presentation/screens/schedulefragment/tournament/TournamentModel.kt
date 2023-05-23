@@ -1,4 +1,4 @@
-package com.example.cytrack.presentation.schedulefragment.tournament
+package com.example.cytrack.presentation.screens.schedulefragment.tournament
 
 data class TournamentModel(
     val id: Long,

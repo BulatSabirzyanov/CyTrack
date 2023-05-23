@@ -1,4 +1,4 @@
-package com.example.cytrack.presentation.schedulefragment
+package com.example.cytrack.presentation.screens.schedulefragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,10 +10,10 @@ import com.example.cytrack.R
 import com.example.cytrack.databinding.FragmentScheduleBinding
 import com.example.cytrack.di.appComponent
 import com.example.cytrack.di.lazyViewModel
-import com.example.cytrack.presentation.schedulefragment.game.GameDelegate
-import com.example.cytrack.presentation.schedulefragment.game.GameModel
-import com.example.cytrack.presentation.schedulefragment.tournament.TournamentDelegate
-import com.example.cytrack.presentation.schedulefragment.tournament.TournamentModel
+import com.example.cytrack.presentation.screens.schedulefragment.game.GameDelegate
+import com.example.cytrack.presentation.screens.schedulefragment.game.GameModel
+import com.example.cytrack.presentation.screens.schedulefragment.tournament.TournamentDelegate
+import com.example.cytrack.presentation.screens.schedulefragment.tournament.TournamentModel
 import com.example.cytrack.presentation.viewmodel.ScheduleFragmentViewModel
 
 

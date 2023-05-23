@@ -1,6 +1,6 @@
-package com.example.cytrack.presentation.schedulefragment.date
+package com.example.cytrack.presentation.screens.schedulefragment.date
 
-import com.example.cytrack.presentation.schedulefragment.DelegateItem
+import com.example.cytrack.presentation.screens.schedulefragment.DelegateItem
 
 
 class DateDelegateItem(

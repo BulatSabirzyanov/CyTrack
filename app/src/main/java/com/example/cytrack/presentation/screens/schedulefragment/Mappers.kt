@@ -1,9 +1,9 @@
-package com.example.cytrack.presentation.schedulefragment
+package com.example.cytrack.presentation.screens.schedulefragment
 
-import com.example.cytrack.presentation.schedulefragment.game.GameDelegateItem
-import com.example.cytrack.presentation.schedulefragment.game.GameModel
-import com.example.cytrack.presentation.schedulefragment.tournament.TournamentDelegateItem
-import com.example.cytrack.presentation.schedulefragment.tournament.TournamentModel
+import com.example.cytrack.presentation.screens.schedulefragment.game.GameDelegateItem
+import com.example.cytrack.presentation.screens.schedulefragment.game.GameModel
+import com.example.cytrack.presentation.screens.schedulefragment.tournament.TournamentDelegateItem
+import com.example.cytrack.presentation.screens.schedulefragment.tournament.TournamentModel
 
 fun List<GameModel>.concatenateWithTournament(tournaments: List<TournamentModel>): List<DelegateItem> {
     val delegateItemList: MutableList<DelegateItem> = mutableListOf()
