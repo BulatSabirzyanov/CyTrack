@@ -8,8 +8,7 @@ data class Team(
     @SerializedName("image_url")
     val imageUrl: String,
     val location: String,
-    @SerializedName("modified_at")
-    val modifiedAt: String,
     val name: String,
+    val players: List<PlayersResponse>,
     val slug: String
 )

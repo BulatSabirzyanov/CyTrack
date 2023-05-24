@@ -2,6 +2,7 @@ package com.example.cytrack.data.repository
 
 import com.example.cytrack.data.remote.response.GameTournamentsResponse
 import com.example.cytrack.data.remote.response.PlayersResponse
+import com.example.cytrack.data.remote.response.Team
 import com.example.cytrack.data.remote.service.PandaScoreApiService
 import com.example.cytrack.domain.GameRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -25,6 +26,12 @@ class GameRepositoryImpl (
     override suspend fun getPlayerData(game: String): List<PlayersResponse> {
         return withContext(ioDispatcher){
             remoteSource.getPlayerData(game)
+        }
+    }
+
+    override suspend fun getTeamsData(game: String): List<Team> {
+        return withContext(ioDispatcher){
+            remoteSource.getTeamsData(game)
         }
     }
 

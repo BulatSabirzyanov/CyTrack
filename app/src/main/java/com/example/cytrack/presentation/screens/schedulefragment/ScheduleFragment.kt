@@ -31,6 +31,8 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         game = arguments?.getString(ARG_GAME) ?: ""
+
+
     }
 
 
@@ -52,18 +54,35 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentScheduleBinding.inflate(inflater, container, false)
+        when(game){
+            "csgo" -> {Glide.with(requireContext())
+                .load(R.drawable.csgo_icon)
+                .into(binding.iVGameIcon)}
+            "dota2" -> {Glide.with(requireContext())
+                .load(R.drawable.dota2_icon)
+                .into(binding.iVGameIcon)}
+            "valorant" -> {Glide.with(requireContext())
+                .load(R.drawable.valorant_icon)
+                .into(binding.iVGameIcon)}
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.progressBar.visibility = View.VISIBLE
+        binding.recycler.visibility = View.GONE
         binding.tournamentName.text = game
+
         observeData()
         adapter.apply {
             addDelegate(GameDelegate(Glide.with(requireContext())))
             addDelegate(TournamentDelegate())
         }
         binding.recycler.adapter = adapter
+        binding.progressBar.visibility = View.GONE
+        binding.recycler.visibility = View.VISIBLE
+
         adapter.submitList(stubGameList.concatenateWithTournament(stubTournamentList))
     }
 

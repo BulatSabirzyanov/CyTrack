@@ -2,25 +2,114 @@ package com.example.cytrack.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.cytrack.data.remote.response.GameTournamentsResponse
+import com.example.cytrack.data.remote.response.PlayersResponse
+import com.example.cytrack.data.remote.response.Team
 import com.example.cytrack.domain.GameRepository
+import com.example.cytrack.presentation.screens.schedulefragment.tournament.TournamentModel
+import com.example.cytrack.presentation.screens.searchfragment.PlayerModel
+import com.example.cytrack.presentation.screens.searchfragment.TeamModel
+import com.example.cytrack.presentation.viewmodel.ScheduleFragmentViewModel.Companion.ASSISTED_GAME_NAME
 import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-/*
+
 class SearchFragmentViewModel @AssistedInject constructor(
     private val gameRepository: GameRepository,
-    @Assisted(ScheduleFragmentViewModel.ASSISTED_GAME_NAME) private var game: String
-) {
+    @Assisted(ASSISTED_GAME_NAME) private var game: String
+) : ViewModel() {
     init {
         getPlayersData(game)
+        getTeamsData(game)
     }
-    private val _listOfGames: MutableLiveData<List<GameModel>> = MutableLiveData(emptyList())
-    val listOfGames: LiveData<List<GameModel>> = _listOfGames
 
-    private val _listOfTournaments: MutableLiveData<List<TournamentModel>> =
+    private var _listOfPlayers: MutableLiveData<List<PlayerModel>> = MutableLiveData(emptyList())
+    var listOfPlayers: LiveData<List<PlayerModel>> = _listOfPlayers
+
+    private var _listOfTeams: MutableLiveData<List<TeamModel>> =
         MutableLiveData(emptyList())
-    val listOfTournaments: LiveData<List<TournamentModel>> = _listOfTournaments
+    var listOfTeams: LiveData<List<TeamModel>> = _listOfTeams
+
+    private fun getPlayersData(game: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching {
+                gameRepository.getPlayerData(game)
+            }.onSuccess { value: List<PlayersResponse> ->
+                val playerModels = value.map { player ->
+                    PlayerModel(
+                        age = player.age,
+                        birthday = player.birthday,
+                        currentTeam = player.currentTeam,
+                        firstName = player.firstName,
+                        imageUrl = player.imageUrl,
+                        lastName = player.lastName,
+                        name = player.name,
+                        currentVideoGame = player.current_videogame,
+                        nationality = player.nationality,
+                        role = player.role
+                    )
+                }
+                _listOfPlayers.postValue(playerModels)
+
+            }
+        }
+
+    }
+
+
+    private fun getTeamsData(game: String){
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching {
+                gameRepository.getTeamsData(game)
+            }.onSuccess {
+                teams : List<Team> ->
+                val teamModels = teams.map {
+                    team ->
+                    TeamModel(
+                        acronym = team.acronym,
+                        id = team.id,
+                        imageUrl = team.imageUrl,
+                        location = team.location,
+                        name = team.name,
+                        players = team.players.map {
+                            playerResponse ->
+                            PlayerModel(
+                                age = playerResponse.age,
+                                birthday = playerResponse.birthday,
+                                currentTeam = playerResponse.currentTeam,
+                                firstName = playerResponse.firstName,
+                                imageUrl = playerResponse.imageUrl,
+                                lastName = playerResponse.lastName,
+                                name = playerResponse.name,
+                                currentVideoGame = playerResponse.current_videogame,
+                                nationality = playerResponse.nationality,
+                                role = playerResponse.role
+                            )
+
+                        },
+                        slug = team.slug
+                    )
+                }
+                _listOfTeams.postValue(teamModels)
+            }
+        }
+    }
+
+
+    @AssistedFactory
+    interface Factory {
+        fun create(
+            @Assisted(ASSISTED_GAME_NAME) game: String
+        ): SearchFragmentViewModel
+    }
+
+
 
 }
-*/
+
 

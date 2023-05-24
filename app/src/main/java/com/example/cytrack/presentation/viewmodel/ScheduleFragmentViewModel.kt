@@ -34,6 +34,7 @@ class ScheduleFragmentViewModel @AssistedInject constructor(
 
 
     private fun getSchedule(game: String) {
+
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
                 gameRepository.getGameTournaments(game)
