@@ -67,8 +67,8 @@ class ScheduleFragmentViewModel @AssistedInject constructor(
                                     date = match.beginAt,
                                     team1 = team1.name,
                                     team2 = team2.name,
-                                    team1Icon = team1.imageUrl?: "",
-                                    team2Icon = team2.imageUrl?: "",
+                                    team1Icon = team1.imageUrl,
+                                    team2Icon = team2.imageUrl,
                                 )
                             } else {
                                 null

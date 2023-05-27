@@ -42,16 +42,15 @@ class SearchFragmentViewModel @AssistedInject constructor(
             }.onSuccess { value: List<PlayersResponse> ->
                 val playerModels = value.map { player ->
                     PlayerModel(
-                        age = player.age,
-                        birthday = player.birthday,
-                        currentTeam = player.currentTeam,
+
+                        currentTeam = player.currentTeam?.name,
                         firstName = player.firstName,
                         imageUrl = player.imageUrl,
                         lastName = player.lastName,
                         name = player.name,
-                        currentVideoGame = player.current_videogame,
                         nationality = player.nationality,
-                        role = player.role
+                        role = player.role,
+                        id = player.id
                     )
                 }
                 _listOfPlayers.postValue(playerModels)
@@ -79,16 +78,14 @@ class SearchFragmentViewModel @AssistedInject constructor(
                         players = team.players.map {
                             playerResponse ->
                             PlayerModel(
-                                age = playerResponse.age,
-                                birthday = playerResponse.birthday,
-                                currentTeam = playerResponse.currentTeam,
+                                currentTeam = playerResponse.currentTeam?.name,
                                 firstName = playerResponse.firstName,
                                 imageUrl = playerResponse.imageUrl,
                                 lastName = playerResponse.lastName,
                                 name = playerResponse.name,
-                                currentVideoGame = playerResponse.current_videogame,
                                 nationality = playerResponse.nationality,
-                                role = playerResponse.role
+                                role = playerResponse.role,
+                                id = playerResponse.id,
                             )
 
                         },

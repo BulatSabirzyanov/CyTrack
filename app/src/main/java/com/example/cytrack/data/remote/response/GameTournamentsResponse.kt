@@ -14,5 +14,5 @@ data class GameTournamentsResponse(
     val slug: String,
     val teams: List<Team>,
     val tier: String,
-    val videogame: Videogame,
+    val videogame: VideoGame,
     )

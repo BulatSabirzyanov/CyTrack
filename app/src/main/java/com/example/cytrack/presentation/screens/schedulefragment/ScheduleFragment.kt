@@ -93,7 +93,7 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
     }
 
     companion object {
-        private const val ARG_GAME = "game"
+        internal const val ARG_GAME = "game"
 
         fun newInstance(game: String) = ScheduleFragment().apply {
             arguments = Bundle().apply { putString(ARG_GAME, game) }
