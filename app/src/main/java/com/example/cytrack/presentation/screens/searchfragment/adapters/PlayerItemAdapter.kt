@@ -31,10 +31,15 @@ class PlayerItemAdapter() : ListAdapter<PlayerModel, PlayerItemAdapter.ViewHolde
         private val playerName: TextView = itemView.findViewById(R.id.tV_player_name)
 
         fun bind(item: PlayerModel) {
-            Glide.with(itemView.context)
-                .load(item.imageUrl)
-                .into(image)
-
+            if (item.imageUrl!=null) {
+                Glide.with(itemView.context)
+                    .load(item.imageUrl)
+                    .into(image)
+            }else{
+                Glide.with(itemView.context)
+                    .load(R.drawable.baseline_person_24)
+                    .into(image)
+            }
             playerName.text = item.name
         }
     }

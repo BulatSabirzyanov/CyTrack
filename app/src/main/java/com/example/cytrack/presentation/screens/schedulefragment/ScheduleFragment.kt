@@ -4,7 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cytrack.R
 import com.example.cytrack.databinding.FragmentScheduleBinding
@@ -15,12 +20,14 @@ import com.example.cytrack.presentation.screens.schedulefragment.game.GameModel
 import com.example.cytrack.presentation.screens.schedulefragment.tournament.TournamentDelegate
 import com.example.cytrack.presentation.screens.schedulefragment.tournament.TournamentModel
 import com.example.cytrack.presentation.viewmodel.ScheduleFragmentViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
 
     private lateinit var binding: FragmentScheduleBinding
-    private var game: String? = null
+    private lateinit var game: String
     private val adapter = MainAdapter()
     private val viewModel: ScheduleFragmentViewModel by lazyViewModel {
         requireContext().appComponent().scheduleFragmentViewModel()
@@ -28,13 +35,29 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
     }
     private var stubGameList: List<GameModel> = emptyList()
     private var stubTournamentList: List<TournamentModel> = emptyList()
+    private var progressBarState : Boolean = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         game = arguments?.getString(ARG_GAME) ?: ""
-
-
     }
 
+
+    private fun setRecyclerViewScrollListener(recyclerView: RecyclerView) {
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) {
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val totalItemCount = layoutManager.itemCount
+                    val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+
+                    if (!viewModel.isLoading && totalItemCount <= (lastVisibleItem + 10)) {
+                        viewModel.getSchedule(game = game)
+                    }
+                }
+            }
+        })
+    }
 
     private fun observeData() {
 
@@ -46,6 +69,9 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
             stubTournamentList = tournamentModels
             updateAdapterData()
         }
+        viewModel.progressBarState.observe(viewLifecycleOwner) { isVisible ->
+            binding.progressBar.isVisible = isVisible
+        }
     }
 
     override fun onCreateView(
@@ -54,36 +80,27 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentScheduleBinding.inflate(inflater, container, false)
-        when(game){
-            "csgo" -> {Glide.with(requireContext())
-                .load(R.drawable.csgo_icon)
-                .into(binding.iVGameIcon)}
-            "dota2" -> {Glide.with(requireContext())
-                .load(R.drawable.dota2_icon)
-                .into(binding.iVGameIcon)}
-            "valorant" -> {Glide.with(requireContext())
-                .load(R.drawable.valorant_icon)
-                .into(binding.iVGameIcon)}
-        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.progressBar.visibility = View.VISIBLE
-        binding.recycler.visibility = View.GONE
-        binding.tournamentName.text = game
+        with(binding){
+            tournamentName.text = game
 
-        observeData()
-        adapter.apply {
-            addDelegate(GameDelegate(Glide.with(requireContext())))
-            addDelegate(TournamentDelegate())
+
+            observeData()
+            adapter.apply {
+                addDelegate(GameDelegate(Glide.with(requireContext())))
+                addDelegate(TournamentDelegate())
+            }
+            recycler.adapter = adapter
+            adapter.submitList(stubGameList.concatenateWithTournament(stubTournamentList))
+            setRecyclerViewScrollListener(recycler)
         }
-        binding.recycler.adapter = adapter
-        binding.progressBar.visibility = View.GONE
-        binding.recycler.visibility = View.VISIBLE
 
-        adapter.submitList(stubGameList.concatenateWithTournament(stubTournamentList))
+
+
     }
 
     private fun updateAdapterData() {
@@ -93,7 +110,7 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
     }
 
     companion object {
-        internal const val ARG_GAME = "game"
+        const val ARG_GAME = "game"
 
         fun newInstance(game: String) = ScheduleFragment().apply {
             arguments = Bundle().apply { putString(ARG_GAME, game) }

@@ -9,7 +9,8 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/baseline_peoples_24"/>
 
     <TextView
         android:id="@+id/tV_team_name"

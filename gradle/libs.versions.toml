@@ -66,6 +66,7 @@ room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room-ktx
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room-compiler" }
 adapterdelegates4-kotlin-dsl = { group = "com.hannesdorfmann", name = "adapterdelegates4-kotlin-dsl", version.ref = "adapterdelegates4-kotlin-dsl" }
 viewbinding = { group = "androidx.databinding", name = "viewbinding", version.ref = "viewbinding" }
+androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version = "1.1.0" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "com-android-application" }

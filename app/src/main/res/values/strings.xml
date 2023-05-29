@@ -6,4 +6,8 @@
     <string name="menu_item_schedule">расписание</string>
     <string name="tV_teams">Команды</string>
     <string name="tV_players">Игроки</string>
+    <string name="dota2">dota2</string>
+    <string name="valorant">valorant</string>
+    <string name="csgo">csgo</string>
+    <string name="et_search_fragment">введите имя команды или игрока</string>
 </resources>

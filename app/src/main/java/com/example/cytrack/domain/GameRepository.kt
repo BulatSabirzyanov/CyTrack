@@ -6,9 +6,11 @@ import com.example.cytrack.data.remote.response.Team
 
 
 interface GameRepository {
-    suspend fun getGameTournaments(game: String): List<GameTournamentsResponse>
+    suspend fun getGameTournaments(game: String, page: Int): List<GameTournamentsResponse>
 
-    suspend fun getPlayerData(game: String): List<PlayersResponse>
+    suspend fun getPlayerData(game: String,page : Int): List<PlayersResponse>
 
-    suspend fun getTeamsData(game: String): List<Team>
+    suspend fun getTeamsData(game: String, page: Int): List<Team>
+
+    suspend fun getPlayerInfo(gema: String, name: String?): List<PlayersResponse>
 }

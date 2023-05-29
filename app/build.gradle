@@ -41,6 +41,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1'
     implementation 'com.google.android.gms:play-services-location:21.0.1'
+    implementation libs.androidx.swiperefreshlayout
 
     def core_ktx_version = '1.9.0'
     implementation "androidx.core:core-ktx:$core_ktx_version"
