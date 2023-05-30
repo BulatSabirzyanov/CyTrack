@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cytrack.data.remote.response.GameTournamentsResponse
+import com.example.cytrack.R
 import com.example.cytrack.data.remote.response.PlayersResponse
 import com.example.cytrack.data.remote.response.Team
 import com.example.cytrack.domain.GameRepository
-import com.example.cytrack.presentation.screens.schedulefragment.tournament.TournamentModel
-import com.example.cytrack.presentation.screens.searchfragment.PlayerModel
-import com.example.cytrack.presentation.screens.searchfragment.TeamModel
+import com.example.cytrack.presentation.screens.searchfragment.models.HeadingModel
+import com.example.cytrack.presentation.screens.searchfragment.models.PlayerModel
+import com.example.cytrack.presentation.screens.searchfragment.models.TeamModel
 import com.example.cytrack.presentation.viewmodel.ScheduleFragmentViewModel.Companion.ASSISTED_GAME_NAME
 import com.example.cytrack.presentation.viewmodel.ScheduleFragmentViewModel.Companion.ASSISTED_NAME
 import dagger.assisted.Assisted
@@ -25,19 +25,20 @@ class SearchFragmentViewModel @AssistedInject constructor(
     @Assisted(ASSISTED_GAME_NAME) private var game: String,
     @Assisted(ASSISTED_NAME) private var name: String?
 ) : ViewModel() {
+    var currentGame = game
     var isPlayerLoading = false
     var isTeamLoading = false
-    private var currentPlayersPage = 1
-    private var currentTeamsPage = 1
+    var currentPlayersPage = 1
+    var currentTeamsPage = 1
     init {
-        getPlayersData(game)
-        getTeamsData(game)
-        getPlayerInfo(game, name)
+        getPlayersData(currentGame)
+        getTeamsData(currentGame)
     }
 
-    private var _listOfPlayersSearchForm: MutableLiveData<List<PlayerModel>> =
+    private var _listOfSearchForm: MutableLiveData<List<Any>> =
         MutableLiveData(emptyList())
-    var listOfPlayersSearchForm: LiveData<List<PlayerModel>> = _listOfPlayersSearchForm
+    var listOfPlayersSearchForm: LiveData<List<Any>> = _listOfSearchForm
+
 
     private var _listOfPlayers: MutableLiveData<List<PlayerModel>> = MutableLiveData(emptyList())
     var listOfPlayers: LiveData<List<PlayerModel>> = _listOfPlayers
@@ -47,6 +48,10 @@ class SearchFragmentViewModel @AssistedInject constructor(
     var listOfTeams: LiveData<List<TeamModel>> = _listOfTeams
 
 
+    fun clearLists(){
+        _listOfPlayers.value = emptyList()
+        _listOfTeams.value = emptyList()
+    }
 
     internal fun getPlayersData(game: String) {
         if (!isPlayerLoading) {
@@ -118,7 +123,8 @@ class SearchFragmentViewModel @AssistedInject constructor(
         }
     }
 
-    private fun getPlayerInfo(game: String, name: String?) {
+    fun getInfoSearchForm(game: String?, name: String?) {
+        var listSearchForm = mutableListOf<Any>()
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
                 gameRepository.getPlayerInfo(game, name)
@@ -136,12 +142,56 @@ class SearchFragmentViewModel @AssistedInject constructor(
                         id = player.id
                     )
                 }
-                _listOfPlayersSearchForm.postValue(playerModels)
+                if (playerModels.isNotEmpty()){
+                    listSearchForm.add(HeadingModel(
+                        text = R.string.player_heading_item_text
+                    ))
+                    listSearchForm.addAll(playerModels)
+                }
+
+
+
+            }
+            runCatching {
+                gameRepository.getTeamInfo(game,name)
+            }.onSuccess { teams: List<Team> ->
+                val teamModels = teams.map { team ->
+                    TeamModel(
+                        acronym = team.acronym,
+                        id = team.id,
+                        imageUrl = team.imageUrl,
+                        location = team.location,
+                        name = team.name,
+                        players = team.players.map { playerResponse ->
+                            PlayerModel(
+                                currentTeam = playerResponse.currentTeam?.name,
+                                firstName = playerResponse.firstName,
+                                imageUrl = playerResponse.imageUrl,
+                                lastName = playerResponse.lastName,
+                                name = playerResponse.name,
+                                nationality = playerResponse.nationality,
+                                role = playerResponse.role,
+                                id = playerResponse.id,
+                            )
+
+                        },
+                        slug = team.slug
+                    )
+                }
+                if (teamModels.isNotEmpty()){
+                    listSearchForm.add(HeadingModel(
+                        text = R.string.team_heading_item_text
+                    ))
+                    listSearchForm.addAll(teamModels)
+                }
+
+                _listOfSearchForm.postValue(listSearchForm)
 
             }
         }
 
     }
+
 
 
     @AssistedFactory

@@ -10,4 +10,8 @@
     <string name="valorant">valorant</string>
     <string name="csgo">csgo</string>
     <string name="et_search_fragment">введите имя команды или игрока</string>
+    <string name="player_heading_item_text">Игроки</string>
+    <string name="team_heading_item_text">Команды</string>
+    <string name="all_chip">all</string>
+    <string name="lol_chip">lol</string>
 </resources>

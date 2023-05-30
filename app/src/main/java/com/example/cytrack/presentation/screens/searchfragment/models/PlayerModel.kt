@@ -1,4 +1,4 @@
-package com.example.cytrack.presentation.screens.searchfragment
+package com.example.cytrack.presentation.screens.searchfragment.models
 
 
 

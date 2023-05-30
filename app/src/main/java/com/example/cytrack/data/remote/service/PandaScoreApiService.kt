@@ -37,12 +37,22 @@ interface PandaScoreApiService {
 
     @GET("{game}/players/")
     suspend fun getPlayerInfo(
-        @Path("game") game: String,
+        @Path("game") game: String?,
+        @Query("search[name]") name: String?,
         @Query("sort") sort: String = "",
         @Query("page") page: String = "1",
         @Query("per_page") perPage: String = "50",
-        @Query("search[name]") name: String?
+
     ): List<PlayersResponse>
 
+
+    @GET("{game}/teams/")
+    suspend fun getTeamInfo(
+        @Path("game") game: String?,
+        @Query("search[name]") name: String?,
+        @Query("sort") sort: String = "",
+        @Query("page") page: String = "1",
+        @Query("per_page") perPage: String = "50",
+    ): List<Team>
 
 }

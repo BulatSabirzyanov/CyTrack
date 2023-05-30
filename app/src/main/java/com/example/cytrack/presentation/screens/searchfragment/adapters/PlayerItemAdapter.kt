@@ -1,6 +1,5 @@
 package com.example.cytrack.presentation.screens.searchfragment.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cytrack.R
-import com.example.cytrack.presentation.screens.searchfragment.PlayerModel
+import com.example.cytrack.presentation.screens.searchfragment.models.PlayerModel
 
 class PlayerItemAdapter() : ListAdapter<PlayerModel, PlayerItemAdapter.ViewHolder>(PlayerItemDiffCallback()) {
 

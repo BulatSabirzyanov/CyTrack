@@ -1,7 +1,6 @@
-package com.example.cytrack.presentation.screens.searchfragment
+package com.example.cytrack.presentation.screens.searchfragment.models
 
-import java.text.SimpleDateFormat
-import java.util.Date
+import com.example.cytrack.presentation.screens.searchfragment.models.PlayerModel
 
 data class TeamModel(
     val acronym: String?,

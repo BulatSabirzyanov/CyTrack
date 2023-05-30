@@ -1,39 +1,49 @@
 package com.example.cytrack.presentation.screens.searchfragment
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cytrack.R
-import com.example.cytrack.databinding.FragmentScheduleBinding
 import com.example.cytrack.databinding.FragmentSearchBinding
 import com.example.cytrack.di.appComponent
 import com.example.cytrack.di.lazyViewModel
-import com.example.cytrack.presentation.screens.schedulefragment.MainAdapter
 import com.example.cytrack.presentation.screens.schedulefragment.ScheduleFragment
 import com.example.cytrack.presentation.screens.searchfragment.adapters.PlayerItemAdapter
+import com.example.cytrack.presentation.screens.searchfragment.adapters.SearchAdapter
 import com.example.cytrack.presentation.screens.searchfragment.adapters.TeamItemAdapter
-import com.example.cytrack.presentation.viewmodel.ScheduleFragmentViewModel
+import com.example.cytrack.presentation.screens.searchfragment.models.PlayerModel
+import com.example.cytrack.presentation.screens.searchfragment.models.TeamModel
 import com.example.cytrack.presentation.viewmodel.SearchFragmentViewModel
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private lateinit var binding: FragmentSearchBinding
     private var game: String = "csgo"
+    private var selectedGame = ""
     private var name: String? = null
+    private var searchAdapter = SearchAdapter()
     private var adapterPlayer = PlayerItemAdapter()
     private var adapterTeam = TeamItemAdapter()
     private val viewModel: SearchFragmentViewModel by lazyViewModel {
         requireContext().appComponent().searchFragmentViewModel()
             .create(game = game ?: "", name = name)
     }
+    private var listOfPlayersRecyclerSearch: List<PlayerModel> = emptyList()
+    private var listOfTeamsRecyclerSearch: List<TeamModel> = emptyList()
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +60,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         game = arguments?.getString(ScheduleFragment.ARG_GAME) ?: ""
-
 
 
     }
@@ -88,51 +97,108 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
         })
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with(binding){
+        with(binding) {
+            var searchQuery = ""
             observeData()
             recyclerViewPlayers.adapter = adapterPlayer
             recyclerViewTeams.adapter = adapterTeam
+            searchRV.adapter = searchAdapter
+
             setRecyclerViewPlayersScrollListener(game)
             setRecyclerViewTeamsScrollListener(game)
-            addChipButton.setOnClickListener {
-                val chipGroup = chipGroup
 
-                // Проверяем, что количество чипов не превышает 6
-                if (chipGroup.childCount < 7) {
-                    val chip = Chip(requireContext())
-                    chip.text = "Your text here" // Замените это на текст, который вы хотите добавить
-                    chip.isCloseIconVisible = true
-                    chip.setOnCloseIconClickListener {
-                        chipGroup.removeView(chip) // Обработка удаления чипа
-                    }
-                    chipGroup.addView(chip)
+
+
+            csgoChip.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked) {
+                    searchQuery = editText.text.toString().trim()
+                    selectedGame = "csgo"
+                    viewModel.clearLists()
+                    viewModel.getPlayersData(selectedGame)
+                    viewModel.getTeamsData(selectedGame)
+                    if (searchQuery.isNotEmpty())
+                        viewModel.getInfoSearchForm(selectedGame, searchQuery)
+                    viewModel.currentPlayersPage = 1
+                    viewModel.currentTeamsPage = 1
+                }else{
+                    selectedGame = ""
+                    viewModel.getInfoSearchForm(selectedGame,searchQuery)
+                }
+            }
+            dota2Chip.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked) {
+                    searchQuery = editText.text.toString().trim()
+                    selectedGame = "dota2"
+                    viewModel.clearLists()
+                    viewModel.getPlayersData(selectedGame)
+                    viewModel.getTeamsData(selectedGame)
+                    if (searchQuery.isNotEmpty())
+                        viewModel.getInfoSearchForm(selectedGame, searchQuery)
+                    viewModel.currentPlayersPage = 1
+                    viewModel.currentTeamsPage = 1
+                }else{
+                    selectedGame = ""
+                    viewModel.getInfoSearchForm(selectedGame,searchQuery)
+                }
+
+            }
+            valorantChip.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked) {
+                    searchQuery = editText.text.toString().trim()
+                    selectedGame = "valorant"
+                    viewModel.clearLists()
+                    viewModel.getPlayersData(selectedGame)
+                    viewModel.getTeamsData(selectedGame)
+                    if (searchQuery.isNotEmpty())
+                        viewModel.getInfoSearchForm(selectedGame, searchQuery)
+                    viewModel.currentPlayersPage = 1
+                    viewModel.currentTeamsPage = 1
+                }else{
+                    selectedGame = ""
+                    viewModel.getInfoSearchForm(selectedGame,searchQuery)
+                }
+
+            }
+
+            lolChip.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked) {
+                    searchQuery = editText.text.toString().trim()
+                    selectedGame = "lol"
+                    viewModel.clearLists()
+                    viewModel.getPlayersData(selectedGame)
+                    viewModel.getTeamsData(selectedGame)
+                    if (searchQuery.isNotEmpty())
+                        viewModel.getInfoSearchForm(selectedGame, searchQuery)
+                    viewModel.currentPlayersPage = 1
+                    viewModel.currentTeamsPage = 1
+                }else{
+                    selectedGame = ""
+                    viewModel.getInfoSearchForm(selectedGame,searchQuery)
+                }
+
+            }
+
+            icon.setOnClickListener {
+                searchQuery = editText.text.toString().trim()
+                if (searchQuery.isNotEmpty()) {
+                    if (selectedGame.isNotEmpty())
+                        viewModel.getInfoSearchForm(selectedGame, searchQuery)
+                    else
+                        viewModel.getInfoSearchForm("",searchQuery)
                 } else {
-                    Toast.makeText(requireContext(), "Maximum number of chips reached", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Enter a search query", Toast.LENGTH_SHORT)
+                        .show()
                 }
-            }
+                val inputMethodManager =
+                    context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 
-            csgoChip.setOnClickListener {
-                if (csgoChip.isChecked) {
-                    val selectedGame = "csgo"
-                    viewModel.listOfPlayers.value?.clear()
-                    viewModel.listOfTeams.value?.clear()
-                    setRecyclerViewPlayersScrollListener(selectedGame)
-                    setRecyclerViewTeamsScrollListener(selectedGame)
-                }
-            }
-            dota2Chip.setOnClickListener {
-                if (dota2Chip.isChecked) {
-                    val selectedGame = "dota2"
-                    viewModel.listOfPlayers.value?.clear()
-                    viewModel.listOfTeams.value?.clear()
-                    setRecyclerViewPlayersScrollListener(selectedGame)
-                    setRecyclerViewTeamsScrollListener(selectedGame)
-                }
+
             }
         }
-
 
 
     }
@@ -142,18 +208,20 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         viewModel.listOfPlayers.observe(viewLifecycleOwner) { playerModels ->
             adapterPlayer.submitList(playerModels)
-            adapterPlayer.notifyDataSetChanged()
+
         }
 
         viewModel.listOfTeams.observe(viewLifecycleOwner) { teamModels ->
             adapterTeam.submitList(teamModels)
-            adapterTeam.notifyDataSetChanged()
-        }
-        viewModel.listOfPlayersSearchForm.observe(viewLifecycleOwner){
-            playerModels->adapterPlayer.submitList(playerModels)
-        }
-    }
 
+        }
+        viewModel.listOfPlayersSearchForm.observe(viewLifecycleOwner) { listOfPlayersSearchForm ->
+            searchAdapter.submitList(listOfPlayersSearchForm)
+
+        }
+
+
+    }
 
 
     companion object {
@@ -165,6 +233,4 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 }
 
-private fun <E> List<E>?.clear() {
-    (this as? MutableList<E>)?.clear()
-}
+

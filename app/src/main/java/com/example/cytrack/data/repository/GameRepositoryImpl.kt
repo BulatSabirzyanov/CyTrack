@@ -29,17 +29,22 @@ class GameRepositoryImpl (
         }
     }
 
-    override suspend fun getTeamsData(game: String, page: Int): List<Team> {
+    override suspend fun getTeamsData(game: String, page: Int) : List<Team> {
         return withContext(ioDispatcher){
             remoteSource.getTeamsData(game, page = page)
         }
     }
 
-    override suspend fun getPlayerInfo(game: String,name :String?):List<PlayersResponse>{
+    override suspend fun getPlayerInfo(game: String?,name :String?) : List<PlayersResponse>{
         return withContext(ioDispatcher){
             remoteSource.getPlayerInfo(game = game, name = name)
         }
     }
 
+    override suspend fun getTeamInfo(game: String?,name :String?) : List<Team>{
+        return withContext(ioDispatcher){
+            remoteSource.getTeamInfo(game = game, name = name)
+        }
+    }
 
 }

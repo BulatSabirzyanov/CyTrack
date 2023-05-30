@@ -12,5 +12,7 @@ interface GameRepository {
 
     suspend fun getTeamsData(game: String, page: Int): List<Team>
 
-    suspend fun getPlayerInfo(gema: String, name: String?): List<PlayersResponse>
+    suspend fun getPlayerInfo(gema: String?, name: String?): List<PlayersResponse>
+
+    suspend fun getTeamInfo(gema: String?, name: String?): List<Team>
 }
