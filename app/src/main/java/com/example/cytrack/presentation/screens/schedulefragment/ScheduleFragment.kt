@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -20,8 +18,6 @@ import com.example.cytrack.presentation.screens.schedulefragment.game.GameModel
 import com.example.cytrack.presentation.screens.schedulefragment.tournament.TournamentDelegate
 import com.example.cytrack.presentation.screens.schedulefragment.tournament.TournamentModel
 import com.example.cytrack.presentation.viewmodel.ScheduleFragmentViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
@@ -86,7 +82,7 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding){
-            tournamentName.text = game
+
 
 
             observeData()
@@ -97,6 +93,23 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
             recycler.adapter = adapter
             adapter.submitList(stubGameList.concatenateWithTournament(stubTournamentList))
             setRecyclerViewScrollListener(recycler)
+
+            when(game){
+                "csgo" -> {
+                    Glide.with(requireContext()).load(R.drawable.csgo).into(iVGameIcon)
+                }
+                "dota2" -> {
+                    Glide.with(requireContext()).load(R.drawable.dota2_icon).into(iVGameIcon)
+                }
+                "valorant" -> {
+                    Glide.with(requireContext()).load(R.drawable.valorant_icon).into(iVGameIcon)
+                }
+
+                else -> {
+
+                }
+            }
+
         }
 
 

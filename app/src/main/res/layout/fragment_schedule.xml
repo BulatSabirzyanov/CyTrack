@@ -11,17 +11,8 @@
         android:id="@+id/iV_game_icon"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tournamentName"
-        android:layout_width="0dp"
-        android:layout_height="35dp"
-        android:text="TextView"
-        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iV_game_icon"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
@@ -29,9 +20,10 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/tournamentName"
+        android:indeterminateTint = "@color/md_theme_light_onPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/iV_game_icon" />
 
 
     <androidx.recyclerview.widget.RecyclerView

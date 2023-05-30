@@ -1,6 +1,5 @@
 package com.example.cytrack.presentation.screens.searchfragment.adapters
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -21,8 +20,12 @@ class SearchAdapter : ListAdapter<Any, RecyclerView.ViewHolder>(SearchDiffCallba
         private const val TYPE_PLAYER = 0
         private const val TYPE_TEAM = 1
         private const val TYPE_HEADING = 2
+    }
 
+    private var listener: OnItemClickListener? = null
 
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        this.listener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -44,7 +47,6 @@ class SearchAdapter : ListAdapter<Any, RecyclerView.ViewHolder>(SearchDiffCallba
         }
     }
 
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
         when (holder) {
@@ -64,12 +66,21 @@ class SearchAdapter : ListAdapter<Any, RecyclerView.ViewHolder>(SearchDiffCallba
         }
     }
 
-    inner class PlayerViewHolder(private var binding: PlayerLayoutSearchRvBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class PlayerViewHolder(private var binding: PlayerLayoutSearchRvBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-
+        init {
+            itemView.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val item = getItem(position)
+                    listener?.onItemClick(item)
+                }
+            }
+        }
 
         fun bind(item: PlayerModel) {
-            with(binding){
+            with(binding) {
                 if (item.imageUrl != null) {
                     Glide.with(itemView.context)
                         .load(item.imageUrl)
@@ -83,15 +94,24 @@ class SearchAdapter : ListAdapter<Any, RecyclerView.ViewHolder>(SearchDiffCallba
                 tVPlayerFirstNameSearchRv.text = item.firstName
                 tVPlayerSecondNameSearchRv.text = item.lastName
             }
-
-
         }
     }
 
-    inner class TeamViewHolder(private var binding: TeamLayoutSearchRvBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class TeamViewHolder(private var binding: TeamLayoutSearchRvBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            itemView.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val item = getItem(position)
+                    listener?.onItemClick(item)
+                }
+            }
+        }
 
         fun bind(item: TeamModel) {
-            with(binding){
+            with(binding) {
                 if (item.imageUrl != null) {
                     Glide.with(itemView.context)
                         .load(item.imageUrl)
@@ -103,20 +123,18 @@ class SearchAdapter : ListAdapter<Any, RecyclerView.ViewHolder>(SearchDiffCallba
                 }
                 tVTeamNameSearchRv.text = item.name
             }
-
-
         }
     }
 
-    inner class HeadingItemViewHolder(private var binding: HeadingItemBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(item: HeadingModel){
-            with(binding){
+    inner class HeadingItemViewHolder(private var binding: HeadingItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: HeadingModel) {
+            with(binding) {
                 root.text = root.context.getString(item.text)
             }
         }
     }
-
-
 }
 
 class SearchDiffCallback : DiffUtil.ItemCallback<Any>() {
@@ -129,8 +147,11 @@ class SearchDiffCallback : DiffUtil.ItemCallback<Any>() {
         }
     }
 
-    @SuppressLint("DiffUtilEquals")
     override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
         return oldItem == newItem
     }
+}
+
+interface OnItemClickListener {
+    fun onItemClick(item: Any)
 }
