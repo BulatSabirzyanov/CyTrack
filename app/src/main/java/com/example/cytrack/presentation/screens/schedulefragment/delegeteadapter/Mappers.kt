@@ -1,4 +1,4 @@
-package com.example.cytrack.presentation.screens.schedulefragment
+package com.example.cytrack.presentation.screens.schedulefragment.delegeteadapter
 
 import com.example.cytrack.presentation.screens.schedulefragment.game.GameDelegateItem
 import com.example.cytrack.presentation.screens.schedulefragment.game.GameModel

@@ -13,6 +13,8 @@ import com.example.cytrack.R
 import com.example.cytrack.databinding.FragmentScheduleBinding
 import com.example.cytrack.di.appComponent
 import com.example.cytrack.di.lazyViewModel
+import com.example.cytrack.presentation.screens.schedulefragment.delegeteadapter.MainAdapter
+import com.example.cytrack.presentation.screens.schedulefragment.delegeteadapter.concatenateWithTournament
 import com.example.cytrack.presentation.screens.schedulefragment.game.GameDelegate
 import com.example.cytrack.presentation.screens.schedulefragment.game.GameModel
 import com.example.cytrack.presentation.screens.schedulefragment.tournament.TournamentDelegate
@@ -27,11 +29,11 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
     private val adapter = MainAdapter()
     private val viewModel: ScheduleFragmentViewModel by lazyViewModel {
         requireContext().appComponent().scheduleFragmentViewModel()
-            .create(game = game ?: "")
+            .create(game = game)
     }
     private var stubGameList: List<GameModel> = emptyList()
     private var stubTournamentList: List<TournamentModel> = emptyList()
-    private var progressBarState : Boolean = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         game = arguments?.getString(ARG_GAME) ?: ""

@@ -11,6 +11,7 @@ import com.example.cytrack.domain.GameRepository
 import com.example.cytrack.presentation.screens.searchfragment.models.HeadingModel
 import com.example.cytrack.presentation.screens.searchfragment.models.PlayerModel
 import com.example.cytrack.presentation.screens.searchfragment.models.TeamModel
+import com.example.cytrack.presentation.screens.searchfragment.models.TeamPlayerModel
 import com.example.cytrack.presentation.viewmodel.ScheduleFragmentViewModel.Companion.ASSISTED_GAME_NAME
 import com.example.cytrack.presentation.viewmodel.ScheduleFragmentViewModel.Companion.ASSISTED_NAME
 import dagger.assisted.Assisted
@@ -23,9 +24,9 @@ import kotlinx.coroutines.launch
 class SearchFragmentViewModel @AssistedInject constructor(
     private val gameRepository: GameRepository,
     @Assisted(ASSISTED_GAME_NAME) private var game: String,
-    @Assisted(ASSISTED_NAME) private var name: String?
+
 ) : ViewModel() {
-    var currentGame = game
+    private var currentGame = game
     var isPlayerLoading = false
     var isTeamLoading = false
     var currentPlayersPage = 1
@@ -34,6 +35,7 @@ class SearchFragmentViewModel @AssistedInject constructor(
         getPlayersData(currentGame)
         getTeamsData(currentGame)
     }
+
 
     private var _listOfSearchForm: MutableLiveData<List<Any>> =
         MutableLiveData(emptyList())
@@ -51,6 +53,7 @@ class SearchFragmentViewModel @AssistedInject constructor(
     fun clearLists(){
         _listOfPlayers.value = emptyList()
         _listOfTeams.value = emptyList()
+        _listOfSearchForm.value = emptyList()
     }
 
     internal fun getPlayersData(game: String) {
@@ -98,16 +101,18 @@ class SearchFragmentViewModel @AssistedInject constructor(
                             imageUrl = team.imageUrl,
                             location = team.location,
                             name = team.name,
-                            players = team.players.map { playerResponse ->
-                                PlayerModel(
-                                    currentTeam = playerResponse.currentTeam?.name,
-                                    firstName = playerResponse.firstName,
-                                    imageUrl = playerResponse.imageUrl,
-                                    lastName = playerResponse.lastName,
-                                    name = playerResponse.name,
-                                    nationality = playerResponse.nationality,
-                                    role = playerResponse.role,
-                                    id = playerResponse.id,
+                            players = team.players.map { teamPlayerResponse ->
+                                TeamPlayerModel(
+                                    age = teamPlayerResponse.age,
+                                    birthday = teamPlayerResponse.birthday,
+                                    firstName = teamPlayerResponse.firstName,
+                                    imageUrl = teamPlayerResponse.imageUrl,
+                                    lastName = teamPlayerResponse.lastName,
+                                    name = teamPlayerResponse.name,
+                                    nationality = teamPlayerResponse.nationality,
+                                    role = teamPlayerResponse.role,
+                                    id = teamPlayerResponse.id,
+                                    slug = teamPlayerResponse.slug
                                 )
 
                             },
@@ -124,7 +129,7 @@ class SearchFragmentViewModel @AssistedInject constructor(
     }
 
     fun getInfoSearchForm(game: String?, name: String?) {
-        var listSearchForm = mutableListOf<Any>()
+        val listSearchForm = mutableListOf<Any>()
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
                 gameRepository.getPlayerInfo(game, name)
@@ -162,16 +167,18 @@ class SearchFragmentViewModel @AssistedInject constructor(
                         imageUrl = team.imageUrl,
                         location = team.location,
                         name = team.name,
-                        players = team.players.map { playerResponse ->
-                            PlayerModel(
-                                currentTeam = playerResponse.currentTeam?.name,
-                                firstName = playerResponse.firstName,
-                                imageUrl = playerResponse.imageUrl,
-                                lastName = playerResponse.lastName,
-                                name = playerResponse.name,
-                                nationality = playerResponse.nationality,
-                                role = playerResponse.role,
-                                id = playerResponse.id,
+                        players = team.players.map { teamPlayerResponse ->
+                            TeamPlayerModel(
+                                age = teamPlayerResponse.age,
+                                birthday = teamPlayerResponse.birthday,
+                                firstName = teamPlayerResponse.firstName,
+                                imageUrl = teamPlayerResponse.imageUrl,
+                                lastName = teamPlayerResponse.lastName,
+                                name = teamPlayerResponse.name,
+                                nationality = teamPlayerResponse.nationality,
+                                role = teamPlayerResponse.role,
+                                id = teamPlayerResponse.id,
+                                slug = teamPlayerResponse.slug
                             )
 
                         },

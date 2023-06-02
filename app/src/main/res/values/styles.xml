@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="corner" >
+        <item name="cornerSize">40dp</item>
+    </style>
+
+    <style name="CustomFontStyle">
+        <item name="android:fontFamily">@font/molot</item>
+    </style>
+</resources>

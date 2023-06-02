@@ -20,6 +20,7 @@
                 android:layout_height="50dp"
                 android:hint="@string/et_search_fragment"
                 android:inputType="text"
+                style="@style/CustomFontStyle"
                 app:layout_constraintEnd_toStartOf="@id/icon"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -37,6 +38,7 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/csgo_chip"
+
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -90,6 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                style="@style/CustomFontStyle"
                 android:text="@string/tV_players"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/searchRV" />
@@ -109,6 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                style="@style/CustomFontStyle"
                 android:text="@string/tV_teams"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recyclerViewPlayers" />

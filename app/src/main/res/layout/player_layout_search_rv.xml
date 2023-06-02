@@ -4,7 +4,10 @@
 
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp">
 
     <ImageView
         android:id="@+id/iV_player_icon_search_rv"
@@ -18,6 +21,9 @@
         android:id="@+id/tV_player_name_search_rv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        style="@style/CustomFontStyle"
         android:text="B1t"
         android:textSize="25dp"
         app:layout_constraintStart_toEndOf="@+id/iV_player_icon_search_rv"
@@ -27,6 +33,8 @@
         android:id="@+id/tV_player_first_name_search_rv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/CustomFontStyle"
+        android:layout_marginStart="8dp"
         android:text="маркус"
         app:layout_constraintStart_toEndOf="@+id/iV_player_icon_search_rv"
         app:layout_constraintTop_toBottomOf="@+id/tV_player_name_search_rv" />
@@ -35,6 +43,8 @@
         android:id="@+id/tV_player_second_name_search_rv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        style="@style/CustomFontStyle"
         android:text="белинский"
         app:layout_constraintStart_toEndOf="@+id/iV_player_icon_search_rv"
         app:layout_constraintTop_toBottomOf="@+id/tV_player_first_name_search_rv" />
