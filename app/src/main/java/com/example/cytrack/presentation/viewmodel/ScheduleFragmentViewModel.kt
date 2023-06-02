@@ -16,6 +16,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class ScheduleFragmentViewModel @AssistedInject constructor(
@@ -40,7 +42,7 @@ class ScheduleFragmentViewModel @AssistedInject constructor(
     private val _progressBarState: MutableLiveData<Boolean> = MutableLiveData(true)
     val progressBarState: LiveData<Boolean> = _progressBarState
 
-    private var currentPage = 1
+    var currentPage = 1
     fun getSchedule(game: String) {
         if (!isLoading) {
             isLoading = true
@@ -53,6 +55,7 @@ class ScheduleFragmentViewModel @AssistedInject constructor(
                     val filteredTournaments = value.filter { !it.hasBracket }
 
                     val tournamentModels = filteredTournaments.map { tournament ->
+
                         TournamentModel(
                             id = tournament.id.toLong(),
                             date = tournament.beginAt,
@@ -71,11 +74,14 @@ class ScheduleFragmentViewModel @AssistedInject constructor(
                                 val team1 =
                                     tournament.teams.find { it.name == teams.getOrNull(teams.lastIndex - 2) }
                                 val team2 = tournament.teams.find { it.name == teams.last() }
+                                val dateTime = LocalDateTime.parse(match.beginAt, DateTimeFormatter.ISO_DATE_TIME)
+                                val timeString = dateTime.format(DateTimeFormatter.ofPattern("HH:mm\n"))
+                                val dateString = dateTime.format(DateTimeFormatter.ofPattern("dd-MM\n"))
 
                                 if (team1 != null && team2 != null) {
                                     GameModel(
                                         id = match.tournamentId.toLong(),
-                                        date = match.beginAt,
+                                        date = "$timeString$dateString",
                                         team1 = team1.name,
                                         team2 = team2.name,
                                         team1Icon = team1.imageUrl,

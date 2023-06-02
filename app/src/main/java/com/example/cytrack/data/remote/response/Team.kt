@@ -9,6 +9,6 @@ data class Team(
     val imageUrl: String,
     val location: String,
     val name: String,
-    val players: List<PlayersResponse>,
+    val players: List<TeamPlayerResponse>,
     val slug: String
 )

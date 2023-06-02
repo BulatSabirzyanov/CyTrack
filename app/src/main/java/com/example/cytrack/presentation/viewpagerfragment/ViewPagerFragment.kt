@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.cytrack.R
-import com.example.cytrack.presentation.screens.schedulefragment.ScheduleFragment
 import com.example.cytrack.databinding.FragmentViewPagerBinding
+import com.example.cytrack.presentation.screens.schedulefragment.ScheduleFragment
+import com.google.android.material.tabs.TabLayoutMediator
+
 
 class ViewPagerFragment : Fragment(R.layout.fragment_view_pager) {
     private lateinit var binding: FragmentViewPagerBinding
@@ -34,6 +37,11 @@ class ViewPagerFragment : Fragment(R.layout.fragment_view_pager) {
         }
 
         binding.viewPager.adapter = pagerAdapter
+
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            // Set the tab title if needed
+            // tab.text = "Tab $position"
+        }.attach()
     }
 
     companion object {

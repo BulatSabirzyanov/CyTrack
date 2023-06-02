@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.cytrack.OnItemClickListener
 import com.example.cytrack.R
 import com.example.cytrack.presentation.screens.searchfragment.models.PlayerModel
 
-class PlayerItemAdapter() : ListAdapter<PlayerModel, PlayerItemAdapter.ViewHolder>(PlayerItemDiffCallback()) {
+class PlayerItemAdapter(private val listener: OnItemClickListener) : ListAdapter<PlayerModel, PlayerItemAdapter.ViewHolder>(PlayerItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -25,16 +26,26 @@ class PlayerItemAdapter() : ListAdapter<PlayerModel, PlayerItemAdapter.ViewHolde
         holder.bind(item)
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val image: ImageView = itemView.findViewById(R.id.iV_player_icon)
         private val playerName: TextView = itemView.findViewById(R.id.tV_player_name)
 
+        init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val item = getItem(position)
+                    listener.onItemClick(item)
+                }
+            }
+        }
+
         fun bind(item: PlayerModel) {
-            if (item.imageUrl!=null) {
+            if (item.imageUrl != null) {
                 Glide.with(itemView.context)
                     .load(item.imageUrl)
                     .into(image)
-            }else{
+            } else {
                 Glide.with(itemView.context)
                     .load(R.drawable.baseline_person_24)
                     .into(image)

@@ -1,4 +1,4 @@
-package com.example.cytrack.presentation.screens.schedulefragment
+package com.example.cytrack.presentation.screens.schedulefragment.delegeteadapter
 
 interface DelegateItem {
     fun content(): Any

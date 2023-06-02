@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="corner" >
+        <item name="cornerSize">40dp</item>
+    </style>
+
+    <style name="CustomFontStyle">
+        <item name="android:fontFamily">@font/molot</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="CustomTabLayoutStyle" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabIndicatorColor">@android:color/black</item>
+        <item name="tabIndicatorHeight">4dp</item>
+        <item name="tabTextColor">@android:color/black</item>
+        <item name="tabSelectedTextColor">@android:color/black</item>
+    </style>
+
+</resources>

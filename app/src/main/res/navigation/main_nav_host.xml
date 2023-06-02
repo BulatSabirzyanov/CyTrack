@@ -22,5 +22,27 @@
         <action
             android:id="@+id/action_searchFragment2_to_viewPagerFragment"
             app:destination="@id/viewPagerFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_playerDetailsFragment"
+            app:destination="@id/playerDetailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_teamDetailsFragment"
+            app:destination="@id/teamDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/playerDetailsFragment"
+        android:name="com.example.cytrack.presentation.screens.PlayerDetailsFragment"
+        android:label="Player Details" />
+    <fragment
+        android:id="@+id/teamDetailsFragment"
+        android:name="com.example.cytrack.presentation.screens.TeamDetailsFragment"
+        android:label="TeamDetailsFragment" >
+        <action
+            android:id="@+id/action_teamDetailsFragment_to_teamPlayerDetailsFragment"
+            app:destination="@id/teamPlayerDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamPlayerDetailsFragment"
+        android:name="com.example.cytrack.presentation.screens.TeamPlayerDetailsFragment"
+        android:label="TeamPlayerDetailsFragment" />
 </navigation>

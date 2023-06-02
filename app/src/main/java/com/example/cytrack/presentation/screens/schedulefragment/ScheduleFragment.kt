@@ -4,24 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.example.cytrack.R
 import com.example.cytrack.databinding.FragmentScheduleBinding
 import com.example.cytrack.di.appComponent
 import com.example.cytrack.di.lazyViewModel
+import com.example.cytrack.presentation.screens.schedulefragment.delegeteadapter.MainAdapter
+import com.example.cytrack.presentation.screens.schedulefragment.delegeteadapter.concatenateWithTournament
 import com.example.cytrack.presentation.screens.schedulefragment.game.GameDelegate
 import com.example.cytrack.presentation.screens.schedulefragment.game.GameModel
 import com.example.cytrack.presentation.screens.schedulefragment.tournament.TournamentDelegate
 import com.example.cytrack.presentation.screens.schedulefragment.tournament.TournamentModel
+import com.example.cytrack.presentation.screens.searchfragment.adapters.HorizontalSpaceItemDecoration
+import com.example.cytrack.presentation.screens.searchfragment.adapters.VerticalSpaceItemDecoration
 import com.example.cytrack.presentation.viewmodel.ScheduleFragmentViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
@@ -31,11 +32,11 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
     private val adapter = MainAdapter()
     private val viewModel: ScheduleFragmentViewModel by lazyViewModel {
         requireContext().appComponent().scheduleFragmentViewModel()
-            .create(game = game ?: "")
+            .create(game = game)
     }
     private var stubGameList: List<GameModel> = emptyList()
     private var stubTournamentList: List<TournamentModel> = emptyList()
-    private var progressBarState : Boolean = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         game = arguments?.getString(ARG_GAME) ?: ""
@@ -72,6 +73,7 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
         viewModel.progressBarState.observe(viewLifecycleOwner) { isVisible ->
             binding.progressBar.isVisible = isVisible
         }
+
     }
 
     override fun onCreateView(
@@ -79,6 +81,7 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         binding = FragmentScheduleBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -86,7 +89,6 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding){
-            tournamentName.text = game
 
 
             observeData()
@@ -94,9 +96,29 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
                 addDelegate(GameDelegate(Glide.with(requireContext())))
                 addDelegate(TournamentDelegate())
             }
+            val spacingDp = 10f
+            val itemVerticalDecoration = VerticalSpaceItemDecoration(spacingDp)
             recycler.adapter = adapter
+            recycler.addItemDecoration(itemVerticalDecoration)
             adapter.submitList(stubGameList.concatenateWithTournament(stubTournamentList))
             setRecyclerViewScrollListener(recycler)
+
+            when(game){
+                "csgo" -> {
+                    Glide.with(requireContext()).load(R.drawable.csgo).into(iVGameIcon)
+                }
+                "dota2" -> {
+                    Glide.with(requireContext()).load(R.drawable.dota2_icon).into(iVGameIcon)
+                }
+                "valorant" -> {
+                    Glide.with(requireContext()).load(R.drawable.valorant_icon).into(iVGameIcon)
+                }
+
+                else -> {
+
+                }
+            }
+
         }
 
 

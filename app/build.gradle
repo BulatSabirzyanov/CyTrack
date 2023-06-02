@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
+
 }
 
 android {
@@ -105,6 +106,10 @@ dependencies {
     implementation libs.androidx.viewpager2
 
     implementation libs.androidx.navigation.ui
+
+
+    
+
 
 
 }

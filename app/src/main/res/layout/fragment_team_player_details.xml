@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+
+    android:background="@drawable/player_layout_shape"
+    android:paddingBottom="100dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iV_player_icon_search_rv"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/baseline_person_24"
+        app:layout_constraintBottom_toTopOf="@id/tV_player_name_search_rv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:shapeAppearanceOverlay="@style/corner" />
+
+
+    <TextView
+        android:id="@+id/tV_player_name_search_rv"
+        style="@style/CustomFontStyle"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="B1t"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iV_player_icon_search_rv" />
+
+    <TextView
+        android:id="@+id/tV_player_first_name_search_rv_label"
+        style="@style/CustomFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:text="First Name:"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tV_player_name_search_rv" />
+
+    <TextView
+        android:id="@+id/tV_player_first_name_search_rv"
+        style="@style/CustomFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="16dp"
+        android:text="Маркус"
+        app:layout_constraintStart_toEndOf="@+id/tV_player_first_name_search_rv_label"
+        app:layout_constraintTop_toBottomOf="@+id/tV_player_name_search_rv" />
+
+    <TextView
+        android:id="@+id/tV_player_second_name_search_rv_label"
+        style="@style/CustomFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:text="Last Name:"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tV_player_first_name_search_rv_label" />
+
+    <TextView
+        android:id="@+id/tV_player_second_name_search_rv"
+        style="@style/CustomFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="8dp"
+        android:text="Белинский"
+        app:layout_constraintStart_toEndOf="@+id/tV_player_second_name_search_rv_label"
+        app:layout_constraintTop_toBottomOf="@+id/tV_player_first_name_search_rv" />
+
+    <TextView
+        android:id="@+id/tV_age_label"
+        style="@style/CustomFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:text="Age:"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tV_player_second_name_search_rv_label" />
+
+    <TextView
+        android:id="@+id/tV_age"
+        style="@style/CustomFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="8dp"
+        android:text="19"
+        app:layout_constraintStart_toEndOf="@+id/tV_age_label"
+        app:layout_constraintTop_toBottomOf="@+id/tV_player_second_name_search_rv" />
+
+    <TextView
+        android:id="@+id/tV_nationality_label"
+        style="@style/CustomFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:text="Nationality:"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tV_slug" />
+
+    <TextView
+        android:id="@+id/tV_nationality"
+        style="@style/CustomFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="8dp"
+        android:text="Russia"
+        app:layout_constraintStart_toEndOf="@+id/tV_nationality_label"
+        app:layout_constraintTop_toBottomOf="@+id/tV_slug" />
+
+    <TextView
+        android:id="@+id/tV_birthday_label"
+        style="@style/CustomFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:text="Birthday:"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tV_age_label" />
+
+    <TextView
+        android:id="@+id/tV_birthday"
+        style="@style/CustomFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="8dp"
+        android:text="1990-01-01"
+        app:layout_constraintStart_toEndOf="@+id/tV_birthday_label"
+        app:layout_constraintTop_toBottomOf="@+id/tV_age" />
+
+    <TextView
+        android:id="@+id/tV_role_label"
+        style="@style/CustomFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:text="Role:"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tV_birthday_label" />
+
+    <TextView
+        android:id="@+id/tV_role"
+        style="@style/CustomFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="8dp"
+        android:text="Forward"
+        app:layout_constraintStart_toEndOf="@+id/tV_role_label"
+        app:layout_constraintTop_toBottomOf="@+id/tV_birthday" />
+
+    <TextView
+        android:id="@+id/tV_slug_label"
+        style="@style/CustomFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:text="Slug:"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tV_role_label" />
+
+    <TextView
+        android:id="@+id/tV_slug"
+        style="@style/CustomFontStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="8dp"
+        android:text="b1t"
+        app:layout_constraintStart_toEndOf="@+id/tV_slug_label"
+        app:layout_constraintTop_toBottomOf="@+id/tV_role" />
+
+
+    <ImageView
+        android:id="@+id/imageView_nationality"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tV_nationality"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tV_nationality"
+        app:layout_constraintTop_toTopOf="@+id/tV_nationality" />
+</androidx.constraintlayout.widget.ConstraintLayout>

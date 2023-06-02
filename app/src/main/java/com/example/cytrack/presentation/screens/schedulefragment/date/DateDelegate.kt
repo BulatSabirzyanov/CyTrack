@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cytrack.databinding.DateItemBinding
-import com.example.cytrack.presentation.screens.schedulefragment.AdapterDelegate
-import com.example.cytrack.presentation.screens.schedulefragment.DelegateItem
+import com.example.cytrack.presentation.screens.schedulefragment.delegeteadapter.AdapterDelegate
+import com.example.cytrack.presentation.screens.schedulefragment.delegeteadapter.DelegateItem
 
 
 class DateDelegate : AdapterDelegate {
