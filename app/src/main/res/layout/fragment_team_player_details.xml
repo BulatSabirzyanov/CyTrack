@@ -115,7 +115,7 @@
         android:text="Nationality:"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tV_slug_label" />
+        app:layout_constraintTop_toBottomOf="@+id/tV_slug" />
 
     <TextView
         android:id="@+id/tV_nationality"
@@ -200,13 +200,10 @@
 
     <ImageView
         android:id="@+id/imageView_nationality"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginEnd="56dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         app:layout_constraintBottom_toBottomOf="@+id/tV_nationality"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/tV_nationality"
-        app:layout_constraintTop_toTopOf="@+id/tV_nationality"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/tV_nationality" />
 </androidx.constraintlayout.widget.ConstraintLayout>

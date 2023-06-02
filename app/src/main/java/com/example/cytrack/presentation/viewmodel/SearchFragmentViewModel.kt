@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 class SearchFragmentViewModel @AssistedInject constructor(
     private val gameRepository: GameRepository,
     @Assisted(ASSISTED_GAME_NAME) private var game: String,
-
+    @Assisted(ASSISTED_NAME) private var name: String?
 ) : ViewModel() {
     private var currentGame = game
     var isPlayerLoading = false

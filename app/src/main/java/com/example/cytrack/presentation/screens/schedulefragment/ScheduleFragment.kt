@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.example.cytrack.R
 import com.example.cytrack.databinding.FragmentScheduleBinding
@@ -19,6 +20,8 @@ import com.example.cytrack.presentation.screens.schedulefragment.game.GameDelega
 import com.example.cytrack.presentation.screens.schedulefragment.game.GameModel
 import com.example.cytrack.presentation.screens.schedulefragment.tournament.TournamentDelegate
 import com.example.cytrack.presentation.screens.schedulefragment.tournament.TournamentModel
+import com.example.cytrack.presentation.screens.searchfragment.adapters.HorizontalSpaceItemDecoration
+import com.example.cytrack.presentation.screens.searchfragment.adapters.VerticalSpaceItemDecoration
 import com.example.cytrack.presentation.viewmodel.ScheduleFragmentViewModel
 
 
@@ -70,6 +73,7 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
         viewModel.progressBarState.observe(viewLifecycleOwner) { isVisible ->
             binding.progressBar.isVisible = isVisible
         }
+
     }
 
     override fun onCreateView(
@@ -77,6 +81,7 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         binding = FragmentScheduleBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -86,13 +91,15 @@ class ScheduleFragment : Fragment(R.layout.fragment_schedule) {
         with(binding){
 
 
-
             observeData()
             adapter.apply {
                 addDelegate(GameDelegate(Glide.with(requireContext())))
                 addDelegate(TournamentDelegate())
             }
+            val spacingDp = 10f
+            val itemVerticalDecoration = VerticalSpaceItemDecoration(spacingDp)
             recycler.adapter = adapter
+            recycler.addItemDecoration(itemVerticalDecoration)
             adapter.submitList(stubGameList.concatenateWithTournament(stubTournamentList))
             setRecyclerViewScrollListener(recycler)
 

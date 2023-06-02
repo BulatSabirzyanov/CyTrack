@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?selectableItemBackground"
+    android:background="@drawable/player_item_shape"
     android:paddingBottom="10dp"
     android:paddingTop="10dp">
 
@@ -13,6 +13,7 @@
         android:id="@+id/iV_player_icon_search_rv"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_marginStart="20dp"
         android:src="@drawable/baseline_person_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

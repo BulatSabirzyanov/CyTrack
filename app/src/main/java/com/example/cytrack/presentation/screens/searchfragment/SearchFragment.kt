@@ -17,9 +17,11 @@ import com.example.cytrack.databinding.FragmentSearchBinding
 import com.example.cytrack.di.appComponent
 import com.example.cytrack.di.lazyViewModel
 import com.example.cytrack.presentation.screens.schedulefragment.ScheduleFragment
+import com.example.cytrack.presentation.screens.searchfragment.adapters.HorizontalSpaceItemDecoration
 import com.example.cytrack.presentation.screens.searchfragment.adapters.PlayerItemAdapter
 import com.example.cytrack.presentation.screens.searchfragment.adapters.SearchAdapter
 import com.example.cytrack.presentation.screens.searchfragment.adapters.TeamItemAdapter
+import com.example.cytrack.presentation.screens.searchfragment.adapters.VerticalSpaceItemDecoration
 import com.example.cytrack.presentation.screens.searchfragment.models.PlayerModel
 import com.example.cytrack.presentation.screens.searchfragment.models.TeamModel
 import com.example.cytrack.presentation.viewmodel.SearchFragmentViewModel
@@ -97,16 +99,22 @@ class SearchFragment : Fragment(R.layout.fragment_search), OnItemClickListener {
         with(binding) {
             var searchQuery = ""
             observeData()
+            val spacingDp = 10f
+            val itemHorizontalDecoration = HorizontalSpaceItemDecoration(spacingDp)
+            val itemVerticalDecoration = VerticalSpaceItemDecoration(spacingDp)
 
             recyclerViewPlayers.adapter = playerAdapter
-
+            recyclerViewPlayers.addItemDecoration(itemHorizontalDecoration)
 
 
             recyclerViewTeams.adapter = teamAdapter
-
+            recyclerViewTeams.addItemDecoration(itemHorizontalDecoration)
 
 
             searchRV.adapter = searchAdapter
+            searchRV.addItemDecoration(itemVerticalDecoration)
+
+
 
             setRecyclerViewPlayersScrollListener()
             setRecyclerViewTeamsScrollListener()

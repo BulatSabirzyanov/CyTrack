@@ -6,5 +6,9 @@
 
     <style name="CustomFontStyle">
         <item name="android:fontFamily">@font/molot</item>
+        <item name="android:textColor">@android:color/black</item>
     </style>
+
+
+
 </resources>

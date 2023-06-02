@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="80dp"
-    android:layout_marginBottom="10dp"
-    android:layout_marginTop="10dp"
-    android:background="@color/md_theme_light_secondaryContainer">
+    android:background="@drawable/game_item_shape"
+    >
 
     <ImageView
         android:id="@+id/iVTeam1Icon"

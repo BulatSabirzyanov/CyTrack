@@ -42,7 +42,7 @@ class ScheduleFragmentViewModel @AssistedInject constructor(
     private val _progressBarState: MutableLiveData<Boolean> = MutableLiveData(true)
     val progressBarState: LiveData<Boolean> = _progressBarState
 
-    private var currentPage = 1
+    var currentPage = 1
     fun getSchedule(game: String) {
         if (!isLoading) {
             isLoading = true

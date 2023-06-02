@@ -56,8 +56,8 @@
             <ImageView
                 android:id="@+id/imageView_location"
 
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="36dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView_team_location"
                 app:layout_constraintEnd_toStartOf="@+id/imageView_team_icon"
